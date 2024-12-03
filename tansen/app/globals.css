@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+/* For the "pop" effect on the center card */
+/* For the "pop" effect on the center card */
+/* For the "pop" effect on the center card */
+.slick-center .slick-slide {
+  transform: scale(1.1); /* Scale up the center card */
+  transition: transform 0.3s ease-in-out; /* Smooth transition */
+}
+
+.slick-slide {
+  transition: transform 0.3s ease-in-out; /* Smooth transition for all cards */
+}
+
+/* Optional: Adding a little effect when hovering over cards */
+.slick-slide:hover {
+  transform: scale(1.05); /* Slightly scale the card when hovered */
+}
+
+/* Dots customization */
+.slick-dots {
+  position: relative; /* Ensure positioning below the carousel */
+  bottom: -30px; /* Move the dots below the carousel */
+  padding: 0;
+  text-align: center;
+}
+
+.slick-dots li {
+  display: inline-block; /* Ensure the dots are horizontally aligned */
+  margin: 0 5px; /* Optional: Space between dots */
+}
+
+.slick-dots li button {
+  background-color: gray; /* Inactive dot color */
+  border-radius: 50%;
+  width: 12px; /* Dot size */
+  height: 12px;
+  transition: background-color 0.3s ease;
+  border: none; /* Remove default button border */
+}
+
+/* Active dot style */
+.slick-dots li.slick-active button {
+  background-color: white; /* Active dot color */
+}
