@@ -7,7 +7,7 @@ import Slider from 'react-slick'; // Importing react-slick
 const Chat = dynamic(() => import('./Chat'), { ssr: false });
 const Card = dynamic(() => import('./Card'), { ssr: false });
 
-const Home = () => {
+const Page = () => {
   const [isClient, setIsClient] = useState(false);
   const [showChatbot, setShowChatbot] = useState(false);
 
@@ -21,6 +21,10 @@ const Home = () => {
 
   const handleStartChattingClick = () => {
     setShowChatbot(true); // Show chatbot when button is clicked
+  };
+
+  const handleCloseChat = () => {
+    setShowChatbot(false); // Close the chatbot
   };
 
   // Slick slider settings with centerMode enabled for "pop" effect
@@ -100,7 +104,7 @@ const Home = () => {
       </section>
 
       {/* Display the Chatbot */}
-      {showChatbot && <Chat />}
+      {showChatbot && <Chat onClose={handleCloseChat} />}
 
       {/* Uncover the Legends Section */}
       <section className="mt-10 px-4 max-w-5xl mx-auto">
@@ -169,4 +173,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Page;

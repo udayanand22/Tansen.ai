@@ -1,9 +1,12 @@
-// app/Chat.tsx
-'use client';
+"use client";
 
 import React, { useState } from 'react';
 
-const Chat = () => {
+interface ChatProps {
+  onClose: () => void; // Close callback prop
+}
+
+const Chat: React.FC<ChatProps> = ({ onClose }) => {
   const [messages, setMessages] = useState([
     { text: "Hi! I'm Tansen. How can I assist you?", from: "bot" },
   ]);
@@ -12,83 +15,131 @@ const Chat = () => {
     { label: "Learn about Indian Classical Music", action: "learn_music" },
     { label: "Ask about Tansen", action: "about_tansen" },
     { label: "Ask about Raga", action: "ask_raga" },
-  ]); // Add options for the user to select from
+    { label: "Learn about Indian Instruments", action: "learn_instruments" },
+    { label: "Learn about Indian Classical Legends", action: "learn_legends" },
+  ]);
+  const [isLoading, setIsLoading] = useState(false);
 
+  // Handle user messages
   const handleUserMessage = () => {
     if (userInput.trim()) {
-      // Add the user's message
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: userInput, from: "user" },
-      ]);
-      setUserInput("");
+      setMessages((prev) => [...prev, { text: userInput, from: "user" }]);
+      setUserInput('');
+      setIsLoading(true);
 
-      // Simple bot response (this can be extended later)
+      // Simulated bot response delay
       setTimeout(() => {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: "I'm still learning. Ask me about Indian classical music!", from: "bot" },
-        ]);
-        setOptions([
-          { label: "Learn about Indian Classical Music", action: "learn_music" },
-          { label: "Ask about Tansen", action: "about_tansen" },
-          { label: "Ask about Raga", action: "ask_raga" },
-        ]);
+        const inputLower = userInput.toLowerCase();
+        let responseText = '';
+
+        // Extended hardcoded responses
+        if (inputLower.includes('indian classical music')) {
+          responseText = 'Indian classical music is a rich tradition comprising Hindustani and Carnatic styles, each with unique ragas and talas.';
+        } else if (inputLower.includes('tansen')) {
+          responseText = 'Tansen was one of the Navaratnas in Akbar’s court and is credited with creating new ragas like Miyan ki Todi and Miyan ki Malhar.';
+        } else if (inputLower.includes('raga')) {
+          responseText = 'A raga is a melodic framework in Indian classical music, each evoking a specific mood or emotion.';
+        } else if (inputLower.includes('carnatic')) {
+          responseText = 'Carnatic music, primarily practiced in southern India, emphasizes intricate compositions and is devotional in nature.';
+        } else if (inputLower.includes('hindustani')) {
+          responseText = 'Hindustani music, prevalent in northern India, focuses on improvisation and explores the depths of ragas in various forms like Dhrupad and Khayal.';
+        } else if (inputLower.includes('instrument')) {
+          responseText = 'Common instruments in Indian classical music include the sitar, tabla, veena, sarod, and bansuri.';
+        } else if (inputLower.includes('legend')) {
+          responseText = 'Legends like Ravi Shankar, Bismillah Khan, and MS Subbulakshmi have significantly influenced Indian classical music globally.';
+        } else if (inputLower.includes('raag malhar')) {
+          responseText = 'Raag Malhar is believed to have the power to invoke rain and is often associated with monsoon.';
+        } else if (inputLower.includes('raag bhairavi')) {
+          responseText = 'Raag Bhairavi is a serene and devotional raga often performed at the end of a concert.';
+        } else {
+          responseText = 'Sorry, I didn’t quite get that. Can you rephrase or select an option below?';
+        }
+
+        setMessages((prev) => [...prev, { text: responseText, from: "bot" }]);
+        setIsLoading(false);
       }, 1000);
     }
   };
 
+  // Handle option clicks
   const handleOptionClick = (action: string) => {
-    // Handle the selected option (can extend this logic to handle more actions)
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: `You selected: ${action}`, from: 'user' },
+    const selectedOption = options.find((opt) => opt.action === action);
+    setMessages((prev) => [
+      ...prev,
+      { text: `You selected: ${selectedOption?.label}`, from: "user" },
     ]);
-    setOptions([]); // Hide options after a selection
+    setOptions([]);
 
-    // Bot response after option selection
     setTimeout(() => {
       let responseText = '';
-      if (action === 'learn_music') {
-        responseText = 'Indian classical music is a traditional art form, with a rich history of ragas, talas, and devotional music.';
-      } else if (action === 'about_tansen') {
-        responseText = 'Tansen was one of the greatest musicians in the Mughal court, known for his mastery of ragas and his incredible vocal skills.';
-      } else if (action === 'ask_raga') {
-        responseText = 'A raga is a melodic framework for improvisation, and it is a fundamental element of Indian classical music.';
+      switch (action) {
+        case 'learn_music':
+          responseText = 'Indian classical music spans traditions such as Hindustani and Carnatic, each with unique philosophies and techniques.';
+          break;
+        case 'about_tansen':
+          responseText = 'Tansen is remembered for his contributions to Hindustani classical music, including the creation of many popular ragas.';
+          break;
+        case 'ask_raga':
+          responseText = 'Ragas are the heart of Indian classical music, each associated with specific times of the day or seasons.';
+          break;
+        case 'learn_instruments':
+          responseText = 'Instruments like the sitar, tabla, and mridangam play vital roles in Indian classical performances.';
+          break;
+        case 'learn_legends':
+          responseText = 'Legends like Ustad Zakir Hussain, Lata Mangeshkar, and Pandit Ravi Shankar are celebrated worldwide.';
+          break;
       }
 
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: responseText, from: 'bot' },
-      ]);
+      setMessages((prev) => [...prev, { text: responseText, from: "bot" }]);
     }, 1000);
   };
 
   return (
-    <div className="fixed bottom-0 right-0 m-4 bg-white rounded-lg w-96 h-80 shadow-xl p-4">
-      <div className="h-full flex flex-col">
-        {/* Chat messages */}
-        <div className="flex-1 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-purple-900 bg-opacity-70">
+      <div className="bg-gradient-to-r from-pink-500 to-purple-500 w-full max-w-lg rounded-lg shadow-lg relative">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-center p-4 rounded-t-lg">
+          <img
+            src="/imagef/tansenbot.jpg"
+            alt="Tansen Avatar"
+            className="w-16 h-16 mx-auto rounded-full border-4 border-white shadow-lg"
+          />
+          <h2 className="mt-2 text-2xl font-bold text-white">Tansen</h2>
+          <p className="text-sm text-white">Your guide to Indian Classical Music</p>
+          <button
+            onClick={onClose}
+            className="absolute top-2 right-2 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center shadow-md"
+          >
+            ✖
+          </button>
+        </div>
+
+        {/* Messages */}
+        <div className="p-4 flex flex-col space-y-2 overflow-y-auto h-60">
           {messages.map((message, index) => (
             <div
               key={index}
-              className={`mb-3 p-2 rounded-lg ${
-                message.from === "bot" ? "bg-gray-200" : "bg-yellow-400 text-black"
-              }`}
+              className={`$`
+                message.from === "bot"
+                  ? "bg-yellow-100 text-black"
+                  : "bg-yellow-300 text-black"
+              } p-3 rounded-lg max-w-xs $
+                message.from === "user" ? "self-end" : "self-start"
+              }
             >
-              <p>{message.text}</p>
+              {message.text}
             </div>
           ))}
         </div>
 
-        {/* Options if any */}
+        {/* Options */}
         {options.length > 0 && (
-          <div className="mt-4 flex flex-col space-y-2">
+          <div className="p-4 space-y-2">
             {options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleOptionClick(option.action)}
-                className="px-4 py-2 bg-yellow-400 text-black font-semibold rounded-lg"
+                className="block w-full px-4 py-2 bg-gradient-to-r from-green-400 to-yellow-500 text-black font-semibold rounded-lg"
               >
                 {option.label}
               </button>
@@ -96,21 +147,21 @@ const Chat = () => {
           </div>
         )}
 
-        {/* User input */}
+        {/* User Input */}
         {options.length === 0 && (
-          <div className="flex items-center mt-2">
+          <div className="p-4 flex items-center border-t bg-gradient-to-r from-pink-500 to-purple-500">
             <input
               type="text"
+              className="flex-1 p-2 border border-gray-300 rounded-l-lg text-black"
+              placeholder="Type your message..."
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-              className="flex-1 p-2 rounded-lg bg-gray-100 border border-gray-300"
-              placeholder="Type your message..."
             />
             <button
               onClick={handleUserMessage}
-              className="ml-2 bg-yellow-400 text-black px-4 py-2 rounded-lg"
+              className="bg-gradient-to-r from-yellow-400 to-red-500 text-black px-4 py-2 rounded-r-lg shadow-md"
             >
-              Send
+              {isLoading ? "Sending..." : "Send"}
             </button>
           </div>
         )}
