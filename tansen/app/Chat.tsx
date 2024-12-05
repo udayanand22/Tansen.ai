@@ -119,13 +119,11 @@ const Chat: React.FC<ChatProps> = ({ onClose }) => {
           {messages.map((message, index) => (
             <div
               key={index}
-              className={`$`
+              className={`p-3 rounded-lg max-w-xs ${
                 message.from === "bot"
-                  ? "bg-yellow-100 text-black"
-                  : "bg-yellow-300 text-black"
-              } p-3 rounded-lg max-w-xs $
-                message.from === "user" ? "self-end" : "self-start"
-              }
+                  ? "bg-yellow-100 text-black self-start"
+                  : "bg-yellow-300 text-black self-end"
+              }`}
             >
               {message.text}
             </div>
