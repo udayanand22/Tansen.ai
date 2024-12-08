@@ -1,16 +1,17 @@
-// Card.tsx
 import React from 'react';
+import Link from 'next/link';
 
 interface CardProps {
   imageSrc: string;
   title: string;
   description: string;
-  link: string;
+  slug: string; // Use slug for dynamic routing
 }
 
-const Card: React.FC<CardProps> = ({ imageSrc, title, description, link }) => {
+const Card: React.FC<CardProps> = ({ imageSrc, title, description, slug }) => {
   return (
-    <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg w-80">
+    <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg w-80 transform transition-transform hover:scale-105">
+      {/* Image Section */}
       <div className="relative" style={{ paddingBottom: '133.33%' }}>
         <img
           src={imageSrc}
@@ -18,15 +19,16 @@ const Card: React.FC<CardProps> = ({ imageSrc, title, description, link }) => {
           className="absolute top-0 left-0 w-full h-full object-cover"
         />
       </div>
+      {/* Content Section */}
       <div className="p-4">
-        <h3 className="text-xl font-bold">{title}</h3>
+        <h3 className="text-xl font-bold text-yellow-400">{title}</h3>
         <p className="text-gray-400 mt-2">{description}</p>
-        <a
-          href={link}
-          className="inline-block mt-4 px-4 py-2 bg-yellow-400 text-black font-semibold rounded"
+        <Link
+          href={`/stories/${slug}`}  // Dynamic link based on the slug
+          className="inline-block mt-4 px-4 py-2 bg-yellow-400 text-black font-semibold rounded hover:bg-yellow-500 transition-colors"
         >
           Learn More
-        </a>
+        </Link>
       </div>
     </div>
   );

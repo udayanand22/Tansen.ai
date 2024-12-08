@@ -41,14 +41,14 @@ const Page = () => {
   };
 
   const legends = [
-    { imageSrc: '/imagef/jasraj.jpg', title: 'Stories of Jasraj', description: 'Discover the legacy of Jasraj.', link: '/stories/jasraj' },
-    { imageSrc: '/imagef/ms.jpg', title: 'Stories of MS Subbulakshmi', description: "Dive into MS Subbulakshmi's music.", link: '/stories/ms' },
-    { imageSrc: '/imagef/ravi.jpg', title: 'Playlists by Ravi Shankar', description: "Explore Ravi Shankar's sitar virtuosity.", link: '/playlists/ravi' },
-    { imageSrc: '/imagef/bismillah.jpg', title: 'Stories of Bismillah Khan', description: "Discover Bismillah Khan's legacy.", link: '/stories/bismillah' },
-    { imageSrc: '/imagef/kishan.jpg', title: 'Stories of Kishan Maharaj', description: "Explore the tabla maestro's life.", link: '/stories/kishan' },
-    { imageSrc: '/imagef/amjad.jpg', title: 'Stories of Amjad Ali Khan', description: "Learn about sarod virtuoso Amjad Ali Khan.", link: '/stories/amjad' },
-    { imageSrc: '/imagef/vilayat.jpg', title: 'Stories of Vilayat Khan', description: "Dive into Vilayat Khan's sitar legacy.", link: '/stories/vilayat' },
-    { imageSrc: '/imagef/bhimsen.jpg', title: 'Stories of Bhimsen Joshi', description: "Explore Bhimsen Joshi's classical music.", link: '/stories/bhimsen' },
+    { imageSrc: '/imagef/jasraj.jpg', title: 'Stories of Jasraj', description: 'Discover the legacy of Jasraj.' },
+    { imageSrc: '/imagef/ms.jpg', title: 'Stories of MS Subbulakshmi', description: "Dive into MS Subbulakshmi's music." },
+    { imageSrc: '/imagef/ravi.jpg', title: 'Playlists by Ravi Shankar', description: "Explore Ravi Shankar's sitar virtuosity." },
+    { imageSrc: '/imagef/bismillah.jpg', title: 'Stories of Bismillah Khan', description: "Discover Bismillah Khan's legacy." },
+    { imageSrc: '/imagef/kishan.jpg', title: 'Stories of Kishan Maharaj', description: "Explore the tabla maestro's life."},
+    { imageSrc: '/imagef/amjad.jpg', title: 'Stories of Amjad Ali Khan', description: "Learn about sarod virtuoso Amjad Ali Khan." },
+    { imageSrc: '/imagef/vilayat.jpg', title: 'Stories of Vilayat Khan', description: "Dive into Vilayat Khan's sitar legacy." },
+    { imageSrc: '/imagef/bhimsen.jpg', title: 'Stories of Bhimsen Joshi', description: "Explore Bhimsen Joshi's classical music." },
   ];
 
   const sliderSettings = {
