@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface ChatProps {
   onClose: () => void;
@@ -8,30 +6,6 @@ interface ChatProps {
 
 const Chat: React.FC<ChatProps> = ({ onClose }) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
-
-  useEffect(() => {
-    if (isChatOpen) {
-      // Dynamically load the Botpress Webchat CDN script when chat is opened
-      const botpressScript = document.createElement("script");
-      botpressScript.src = "https://cdn.botpress.cloud/webchat/v2.2/inject.js";
-      botpressScript.async = true;
-
-      // Load the Botpress configuration script
-      const botpressConfigScript = document.createElement("script");
-      botpressConfigScript.src = "https://files.bpcontent.cloud/2024/12/08/07/20241208075420-R96M1818.js";
-      botpressConfigScript.async = true;
-
-      // Append the scripts to the document body
-      document.body.appendChild(botpressScript);
-      document.body.appendChild(botpressConfigScript);
-
-      // Clean up by removing the scripts when the component is unmounted
-      return () => {
-        document.body.removeChild(botpressScript);
-        document.body.removeChild(botpressConfigScript);
-      };
-    }
-  }, [isChatOpen]);
 
   const handleOpenChat = () => {
     setIsChatOpen(true);
@@ -69,11 +43,16 @@ const Chat: React.FC<ChatProps> = ({ onClose }) => {
           </div>
         )}
 
-        {/* Botpress Webchat Embed */}
+        {/* Botpress Webchat Embed using iframe */}
         {isChatOpen && (
           <div className="p-4">
-            {/* The Botpress Webchat process will be triggered here */}
-            <div id="bp-webchat-container"></div> {/* Botpress will inject the chat here */}
+            <iframe
+              src="https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2024/12/08/07/20241208075420-NMHDVI2X.json"
+              width="100%"
+              height="500"
+              frameBorder="0"
+              title="Tansen Chat"
+            ></iframe>
           </div>
         )}
       </div>
