@@ -5,10 +5,10 @@ interface CardProps {
   imageSrc: string;
   title: string;
   description: string;
-  slug: string; // Use slug for dynamic routing
+  link: string; // Use a direct link to the page
 }
 
-const Card: React.FC<CardProps> = ({ imageSrc, title, description, slug }) => {
+const Card: React.FC<CardProps> = ({ imageSrc, title, description, link }) => {
   return (
     <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg w-80 transform transition-transform hover:scale-105">
       {/* Image Section */}
@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({ imageSrc, title, description, slug }) => {
         <h3 className="text-xl font-bold text-yellow-400">{title}</h3>
         <p className="text-gray-400 mt-2">{description}</p>
         <Link
-          href={`/stories/${slug}`}  // Dynamic link based on the slug
+          href={link} // Direct link to the page
           className="inline-block mt-4 px-4 py-2 bg-yellow-400 text-black font-semibold rounded hover:bg-yellow-500 transition-colors"
         >
           Learn More

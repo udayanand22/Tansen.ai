@@ -13,6 +13,7 @@ const Page = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioSrc, setAudioSrc] = useState('');
   const [audioSelected, setAudioSelected] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     setIsClient(true);
@@ -41,15 +42,20 @@ const Page = () => {
   };
 
   const legends = [
-    { imageSrc: '/imagef/jasraj.jpg', title: 'Stories of Jasraj', description: 'Discover the legacy of Jasraj.' },
-    { imageSrc: '/imagef/ms.jpg', title: 'Stories of MS Subbulakshmi', description: "Dive into MS Subbulakshmi's music." },
-    { imageSrc: '/imagef/ravi.jpg', title: 'Playlists by Ravi Shankar', description: "Explore Ravi Shankar's sitar virtuosity." },
-    { imageSrc: '/imagef/bismillah.jpg', title: 'Stories of Bismillah Khan', description: "Discover Bismillah Khan's legacy." },
-    { imageSrc: '/imagef/kishan.jpg', title: 'Stories of Kishan Maharaj', description: "Explore the tabla maestro's life."},
-    { imageSrc: '/imagef/amjad.jpg', title: 'Stories of Amjad Ali Khan', description: "Learn about sarod virtuoso Amjad Ali Khan." },
-    { imageSrc: '/imagef/vilayat.jpg', title: 'Stories of Vilayat Khan', description: "Dive into Vilayat Khan's sitar legacy." },
-    { imageSrc: '/imagef/bhimsen.jpg', title: 'Stories of Bhimsen Joshi', description: "Explore Bhimsen Joshi's classical music." },
+    { imageSrc: '/imagef/jasraj.jpg', title: 'Stories of Jasraj', description: 'Discover the legacy of Jasraj.', link: '/jasraj' },
+    { imageSrc: '/imagef/ms.jpg', title: 'Stories of MS Subbulakshmi', description: "Dive into MS Subbulakshmi's music.", link: '/ms' },
+    { imageSrc: '/imagef/ravi.jpg', title: 'Stories of Ravi Shankar', description: "Explore Ravi Shankar's sitar virtuosity.", link: '/ravi' },
+    { imageSrc: '/imagef/bismillah.jpg', title: 'Stories of Bismillah Khan', description: "Discover Bismillah Khan's legacy.", link: '/bismillah' },
+    { imageSrc: '/imagef/kishan.jpg', title: 'Stories of Kishan Maharaj', description: "Explore the tabla maestro's life.", link: '/kishan' },
+    { imageSrc: '/imagef/amjad.jpg', title: 'Stories of Amjad Ali Khan', description: "Learn about sarod virtuoso Amjad Ali Khan.", link: '/amjad' },
+    { imageSrc: '/imagef/vilayat.jpg', title: 'Stories of Vilayat Khan', description: "Dive into Vilayat Khan's sitar legacy.", link: '/vilayat' },
+    { imageSrc: '/imagef/bhimsen.jpg', title: 'Stories of Bhimsen Joshi', description: "Explore Bhimsen Joshi's classical music.", link: '/bhimsen' },
   ];
+
+  // Filter legends based on the search query
+  const filteredLegends = legends.filter((legend) =>
+    legend.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const sliderSettings = {
     dots: true,
@@ -104,10 +110,22 @@ const Page = () => {
 
       {showChatbot && <Chat onClose={handleCloseChat} />}
 
+      {/* Search Bar */}
+      <section className="mt-10 px-4 max-w-5xl mx-auto text-center">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search for artists..."
+          className="p-3 w-full max-w-md bg-gray-700 text-white rounded-md"
+        />
+      </section>
+
+      {/* Cards Section */}
       <section className="mt-10 px-4 max-w-5xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-6 text-yellow-400">Uncover the Legends</h2>
         <Slider {...sliderSettings}>
-          {legends.map((legend, index) => (
+          {filteredLegends.map((legend, index) => (
             <Card key={index} imageSrc={legend.imageSrc} title={legend.title} description={legend.description} link={legend.link} />
           ))}
         </Slider>
